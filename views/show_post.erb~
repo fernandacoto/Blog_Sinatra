@@ -1,0 +1,13 @@
+<html>
+<head>
+<title>Show post</title>
+</head>
+<body style= "background-color:#84FF71;">
+<h1 align= "center" style="color:#FF3159;"><%= post[1] %></h1>
+<%contador = 2%>
+<% while(contador < post.length) %>
+<p style= "font-weight:bold;"><%= post[contador] + "\n" %></p>
+<% contador += 1 %>
+<% end %> 
+</body>
+</html>

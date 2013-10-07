@@ -1,0 +1,23 @@
+require 'json'
+
+class Post
+  def self.load_files(directory = 'data/')
+    posts=[]
+    Dir.glob(directory + '*.json').each do |file|
+      post = JSON.load(File.read(file))
+      id = File.basename(file,'.json')
+     
+      posts << self.new(:id =>id, :comment => post['comment'], :title =>post['title'])
+    end
+
+    posts
+  end
+
+  attr_reader :id, :title,:comment
+
+  def initialize(options)
+    @id = options[:id]
+    @comment = options[:comment]
+    @title = options[:title]
+  end
+end

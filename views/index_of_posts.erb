@@ -1,0 +1,18 @@
+<html>
+<head>
+<title>New post</title>
+</head>
+<body style= "background-color:#84FF71;">
+<h1 align= "center" style="color:#FF3159;">Index of posts</h1>
+<ol>
+<% index = 1 %>
+<% posts.each do |element| %>
+  <% post = "" %>
+  <% post = index.to_s %>
+  <li><a href="<%=  'See/'+ post %>" style= "color:#99695B;font-weight:bold;"><%= element %></a></li>
+      <ul><li><a href="<%=  'Delete/'+ post %>" style="color:#6CCC13;">Delete</a></li><li><a href="<%=  'Edit/'+ post %>" style="color:#6CCC13;">Edit</a></li></ul>
+<% index +=1 %>
+<% end %>
+</ol>
+</body>
+</html>
