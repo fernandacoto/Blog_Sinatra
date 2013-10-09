@@ -40,7 +40,7 @@ class Blog < Sinatra::Base
      @post_number = params[:number].to_i
      @post = Filehandler.new()
      @selected_post = []
-     @selected_post = @post.edit_post(@post_number)
+     @selected_post = @post.return_post(@post_number)
      erb :edit_post, :locals =>{:post => @selected_post}
   end
   

@@ -6,7 +6,13 @@
 <h2 align="center" style="color:#FF3159;">New post</h2>
 <form action="/edit_post" method="post" style="color:#CC3F13;">
 Title:<input type="text" name="title" value = "<%= post[0] %>"/><br><br>
-Comment:<br><textarea name ="comment"><%= post[1] %></textarea><br>
+Comment:<br>
+<textarea name ="comment">
+<%contador = 1%>
+<% while(contador < (post.length-1)) %>
+<%= post[contador] + "\n" %>
+<% contador += 1 %>
+<% end %> </textarea><br>
 <input type="submit"/>
 </form>
 </body>
