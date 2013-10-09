@@ -38,14 +38,18 @@ class Blog < Sinatra::Base
 
   get '/Edit/:number' do
      @post_number = params[:number].to_i
+     @post_to_delete = @post_number
      @post = Filehandler.new()
      @selected_post = []
      @selected_post = @post.return_post(@post_number)
-     erb :edit_post, :locals =>{:post => @selected_post}
+     erb :edit_post, :locals =>{:post => @selected_post,:number => @post_number}
   end
   
-  post '/edit_post' do
-    erb :home
+  post '/Edit/edit_post/:number' do
+    @new_post = Filehandler.new()
+    @new_post.save_post(params[:title],params[:comment])
+    @new_post.delete_post(params[:number].to_i)
+    redirect "/Index"
   end
   post '/new_post' do
     @new_post = Filehandler.new()

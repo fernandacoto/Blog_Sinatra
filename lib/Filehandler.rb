@@ -87,7 +87,7 @@ class Filehandler
   def get_line_number_start_post(post_number)
     titles = []
     titles = get_posts_title
-    line = buscar_linea(titles[post_number-1])
+    line = buscar_linea(titles[post_number - 1])
     return line
   end
 

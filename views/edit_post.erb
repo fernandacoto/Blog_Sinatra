@@ -4,7 +4,7 @@
 </head>
 <body style= "background-color:#84FF71;">
 <h2 align="center" style="color:#FF3159;">New post</h2>
-<form action="/edit_post" method="post" style="color:#CC3F13;">
+<form action="<%=  'edit_post/'+ number.to_s %>" method="post" style="color:#CC3F13;">
 Title:<input type="text" name="title" value = "<%= post[0] %>"/><br><br>
 Comment:<br>
 <textarea name ="comment">
@@ -15,5 +15,9 @@ Comment:<br>
 <% end %> </textarea><br>
 <input type="submit"/>
 </form>
+<ul>
+<li><a href="Index" style= "color:#99695B;font-weight:bold;">Show all posts</a></li>
+<li><a href="/" style= "color:#99695B;font-weight:bold;">Home</a></li>
+</ul>
 </body>
 </html>
