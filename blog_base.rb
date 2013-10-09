@@ -4,11 +4,13 @@ require 'sinatra'
 require './lib/Filehandler'
 
 class Blog < Sinatra::Base
+
   before do
     @links_titles = []
     @posts = Filehandler.new()
     @links_titles = @posts.get_posts_title
   end
+
   get '/' do
    erb :home
   end
@@ -38,7 +40,6 @@ class Blog < Sinatra::Base
 
   get '/Edit/:number' do
      @post_number = params[:number].to_i
-     @post_to_delete = @post_number
      @post = Filehandler.new()
      @selected_post = []
      @selected_post = @post.return_post(@post_number)
@@ -51,6 +52,7 @@ class Blog < Sinatra::Base
     @new_post.delete_post(params[:number].to_i)
     redirect "/Index"
   end
+
   post '/new_post' do
     @new_post = Filehandler.new()
     @new_post.save_post(params[:title],params[:comment])
