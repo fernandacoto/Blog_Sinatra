@@ -1,8 +1,8 @@
 require 'fileutils'
 class Filehandler
-
+  FILE_ROUTE = Dir.pwd+'/posts.txt'
   def save_post(title,comment)
-    File.open("posts.txt", 'a+') do
+    File.open(FILE_ROUTE, 'a+') do
     |f| f.write("Inicio de Post")
       	f.write("\n"+"Title:" + title + "\n" )
       	f.write( comment + "\n")
@@ -13,7 +13,7 @@ class Filehandler
  
   def get_posts_title
     titles=[]
-    File.open(Dir.pwd+'/posts.txt','r').each_line do |line|
+    File.open(FILE_ROUTE,'r').each_line do |line|
       compare_line(line,titles)
     end
     return titles
@@ -28,24 +28,22 @@ class Filehandler
   def return_post(index)
     line = get_line_number_start_post(index)
     post = []
-    post[0] = IO.readlines(Dir.pwd+'/posts.txt')[line].to_s
+    post[0] = IO.readlines(FILE_ROUTE)[line].to_s
     more_than_a_line_comment(line,post)
   end
 
   def find_line(title)
-    counter = 0
-    while(counter <= IO.readlines(Dir.pwd+'/posts.txt').count)
-       if ((IO.readlines(Dir.pwd+'/posts.txt')[counter].to_s).include? title)
-         return counter
-       end
-       counter +=1
+    File.open(FILE_ROUTE,'r') do |file|
+      file.readlines.each_with_index do |line,index|
+        return index if line.include? title
+      end 
     end
   end
 
   def more_than_a_line_comment(line,post)
    counter = 0
-    while (!(IO.readlines(Dir.pwd+'/posts.txt')[line + counter].to_s).include? "Fin de Post")
-      post[counter] = IO.readlines(Dir.pwd+'/posts.txt')[line + counter].to_s
+    while (!(IO.readlines(FILE_ROUTE)[line + counter].to_s).include? "Fin de Post")
+      post[counter] = IO.readlines(FILE_ROUTE)[line + counter].to_s
       counter += 1
     end
     return post
@@ -55,17 +53,16 @@ class Filehandler
     line_in_file = get_line_number_start_post(post_number) - 1
     end_line = get_end_of_post(line_in_file)
     in_line = 0
-    line_counter= IO.readlines(Dir.pwd+'/posts.txt').count
+    line_counter= IO.readlines(FILE_ROUTE).count
     File.open(Dir.pwd+'/posts.txt.tmp','w') do |file2|
       while(line_counter >= in_line)
-       if((in_line >= line_in_file)&&(in_line <= end_line))
-       else 
-          file2.write(IO.readlines(Dir.pwd+'/posts.txt')[in_line].to_s)
+       unless((in_line >= line_in_file) && (in_line <= end_line))
+          file2.write(IO.readlines(FILE_ROUTE)[in_line].to_s)
        end
         in_line += 1
       end
     end
-    FileUtils.mv Dir.pwd+'/posts.txt.tmp',Dir.pwd+'/posts.txt'
+    FileUtils.mv Dir.pwd+'/posts.txt.tmp',FILE_ROUTE
   end
   
   def get_line_number_start_post(post_number)
@@ -76,8 +73,8 @@ class Filehandler
   end
 
   def get_end_of_post(start_line)
-    while(start_line <= IO.readlines(Dir.pwd+'/posts.txt').count)
-       if ((IO.readlines(Dir.pwd+'/posts.txt')[start_line].to_s).include? "Fin de Post")
+    while(start_line <= IO.readlines(FILE_ROUTE).count)
+       if ((IO.readlines(FILE_ROUTE)[start_line].to_s).include? "Fin de Post")
          return start_line
        end
        start_line +=1

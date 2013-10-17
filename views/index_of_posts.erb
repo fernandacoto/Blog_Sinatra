@@ -9,13 +9,13 @@
 <% posts.each do |element| %>
   <% post = "" %>
   <% post = index.to_s %>
-  <li><a href="<%=  'See/'+ post %>" style= "color:#99695B;font-weight:bold;"><%= element %></a></li>
-      <ul><li><a href="<%=  'Delete/'+ post %>" style="color:#6CCC13;">Delete</a></li><li><a href="<%=  'Edit/'+ post %>" style="color:#6CCC13;">Edit</a></li></ul>
+  <li><a href="<%=  'show/'+ post %>" style= "color:#99695B;font-weight:bold;"><%= element %></a></li>
+      <ul><li><a href="<%=  'delete/'+ post %>" style="color:#6CCC13;">Delete</a></li><li><a href="<%=  'edit/'+ post %>" style="color:#6CCC13;">Edit</a></li></ul>
 <% index +=1 %>
 <% end %>
 </ol>
 <ul>
-<li><a href="New" style= "color:#99695B;font-weight:bold;">New post</a></li>
+<li><a href="new" style= "color:#99695B;font-weight:bold;">New post</a></li>
 <li><a href="/" style= "color:#99695B;font-weight:bold;">Home</a></li>
 </ul>
 </body>
