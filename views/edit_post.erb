@@ -8,10 +8,10 @@
 Title:<input type="text" name="title" value = "<%= post[0] %>"/><br><br>
 Comment:<br>
 <textarea name ="comment">
-<%contador = 1%>
-<% while(contador < (post.length-1)) %>
-<%= post[contador] + "\n" %>
-<% contador += 1 %>
+<%counter = 1%>
+<% while(counter < (post.length-1)) %>
+<%= post[counter] + "\n" %>
+<% counter += 1 %>
 <% end %> </textarea><br>
 <input type="submit"/>
 </form>

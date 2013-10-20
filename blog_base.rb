@@ -5,6 +5,7 @@ require './lib/Filehandler'
 
 class Blog < Sinatra::Base
 
+  POST = Filehandler.new()
   before do
     @links_titles = []
     posts = Filehandler.new()
@@ -24,38 +25,28 @@ class Blog < Sinatra::Base
   end
 
   get '/show/:number' do
-     post_number = params[:number].to_i
-     post = Filehandler.new()
-     selected_post = []
-     selected_post = post.return_post(post_number)
+     selected_post = POST.return_post(params[:number].to_i)
      erb :show_post, :locals =>{:post => selected_post}
   end
 
   get '/delete/:number' do
-     post_number = params[:number].to_i
-     post = Filehandler.new()
-     post.delete_post(post_number)
+     POST.delete_post(params[:number].to_i)
      redirect "/index"
   end
 
   get '/edit/:number' do
-     post_number = params[:number].to_i
-     post = Filehandler.new()
-     selected_post = []
-     selected_post = post.return_post(post_number)
-     erb :edit_post, :locals =>{:post => selected_post,:number => post_number}
+     selected_post = POST.return_post(params[:number].to_i)
+     erb :edit_post, :locals =>{:post => selected_post,:number => params[:number].to_i}
   end
   
   post '/edit/edit_post/:number' do
-    new_post = Filehandler.new()
-    new_post.save_post(params[:title],params[:comment])
-    new_post.delete_post(params[:number].to_i)
+    POST.save_post(params[:title],params[:comment])
+    POST.delete_post(params[:number].to_i)
     redirect "/index"
   end
 
   post '/new_post' do
-    new_post = Filehandler.new()
-    new_post.save_post(params[:title],params[:comment])
+    POST.save_post(params[:title],params[:comment])
     erb :home
   end
 end
